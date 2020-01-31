@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  
+  boothibernateapp:
+     image: payalbnsl/springBootHibernate
+     networks: 
+       - n1
+     ports:
+       - 80:8080
+     depends_on:
+       - mypostgres
+       
+  mypostgres:
+     image: postgres
+     networks:
+       - n1
+     environment:
+       - POSTGRES_USER=postgres
+       - POSTGRES_PORT=5432
+       - POSTGRES_PASSWORD=postgres
+
+networks:
+  n1: 
+    

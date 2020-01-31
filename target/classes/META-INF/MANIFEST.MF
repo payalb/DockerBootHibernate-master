@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Built-By: zengpeiran
+Build-Jdk: 13.0.1
+Implementation-Title: Test
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.infotech.book.ticket.app
+Implementation-Vendor: Pivotal Software, Inc.
+Implementation-URL: http://projects.spring.io/spring-boot/SpringBootSimp
+ leCache/
+Created-By: Maven Integration for Eclipse
+

@@ -1,0 +1,45 @@
+node {
+
+ options
+    {
+        buildDiscarder(logRotator(numToKeepStr: '3'))
+    }	
+     environment 
+    {
+        VERSION = 'latest'
+        PROJECT = 'DockerBootHibernate'
+        IMAGE = 'DockerBootHibernate'
+        ECRURL = 'http://167218169229.dkr.ecr.us-east-1.amazonaws.com'
+        ECRCRED = 'ecr:af21719e-ef41-4a04-87b1-af757785799b'
+        IMAGE = "$PROJECT:$VERSION"
+    }
+    agent any																							
+
+    stage('Clone repository') {
+        /* Let's make sure we have the repository cloned to our workspace */
+
+         git 'ssh://git@github.com:payalbnsl/DockerBootHibernate.git'
+    }
+
+    stage('Build image') {
+        /* This builds the actual image; synonymous to
+         * docker build on the command line */
+
+        app = docker.build(ECRURL/IMAGE)
+    }
+
+    stage('Test image') {
+        /* Ideally, we would run a test framework against our image.
+         * For this example, we're using a Volkswagen-type approach ;-) */
+
+        app.inside {
+            sh 'echo "Tests passed"'
+        }
+    }
+
+    stage('Push image') {
+         sh("eval \$(aws ecr get-login --no-include-email | sed 's|https://||')")
+        docker.withRegistry(ECRURL, ECRCRED) {
+              docker.image(IMAGE).push()
+        }
+    }

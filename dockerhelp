@@ -1,0 +1,11 @@
+
+According to the docs:
+You need to include the namespace for Docker Hub to associate it with your account.
+The namespace is the same as your Docker Hub account name.
+You need to rename the image to YOUR_DOCKERHUB_NAME/docker-whale.
+So, this means you have to tag your image before pushing:
+docker tag firstimage YOUR_DOCKERHUB_NAME/firstimage
+and then you should be able to push it.
+docker push YOUR_DOCKERHUB_NAME/firstimage
+Update: see also the answer from provided by Dean Wu. Before pushing, remember to log in from the command line to your docker hub account
+docker login
